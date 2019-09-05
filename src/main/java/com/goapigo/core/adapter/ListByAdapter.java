@@ -1,6 +1,6 @@
-package com.goapigo.poc.adapter;
+package com.goapigo.core.adapter;
 
-import com.goapigo.poc.annotations.ListBy;
+import com.goapigo.core.annotations.ListBy;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 
@@ -20,7 +20,7 @@ public class ListByAdapter implements Adaptable<List<?>> {
     var cssSelector = listBy.value();
     var document = Jsoup.parse(htmlContent);
     var elements = document.select(cssSelector);
-    var service = new GoApiGoService();
+    var service = new GoApiGoProcessor();
     return elements.stream()
         .map(element -> service.processElement(element.html(), responseClass))
         .collect(Collectors.toList());

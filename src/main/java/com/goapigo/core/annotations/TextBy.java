@@ -1,4 +1,4 @@
-package com.goapigo.poc.annotations;
+package com.goapigo.core.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

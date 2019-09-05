@@ -1,8 +1,7 @@
-package com.goapigo.poc.adapter;
+package com.goapigo.core.adapter;
 
-import com.goapigo.poc.annotations.AttributeBy;
-import com.goapigo.poc.annotations.ListBy;
-import com.goapigo.poc.annotations.TextBy;
+import com.goapigo.core.annotations.ListBy;
+import com.goapigo.core.annotations.TextBy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,7 +11,6 @@ import java.util.Arrays;
 @AllArgsConstructor
 @Getter
 public enum SelectorAnnotations {
-  ATTRIBUTE(AttributeBy.class, null),
   INNERTEXT(TextBy.class, TextByAdapter.class),
   LIST(ListBy.class, ListByAdapter.class);
 

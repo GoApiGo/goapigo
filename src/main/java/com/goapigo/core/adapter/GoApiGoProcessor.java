@@ -1,9 +1,8 @@
-package com.goapigo.poc.adapter;
+package com.goapigo.core.adapter;
 
-import com.goapigo.poc.annotations.GoApiGo;
+import com.goapigo.core.annotations.GoApiGo;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
-import org.springframework.stereotype.Service;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -12,10 +11,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Slf4j
-@Service
-public class GoApiGoService {
+public class GoApiGoProcessor {
 
-  public <T extends Object> T process(String htmlContent, Class<T> entity) {
+  public <T extends Object> T go(String htmlContent, Class<T> entity) {
     if (!entity.isAnnotationPresent(GoApiGo.class)) {
       throw new IllegalArgumentException(
           String.format("Entity %s class must be annotated by @GoApiGo", entity.getSimpleName()));
@@ -26,7 +24,7 @@ public class GoApiGoService {
   <T extends Object> Optional<T> processElement(String htmlContent, Class<T> entity) {
     try {
       T entityInstance = entity.getConstructor().newInstance();
-      Reflections reflections = new Reflections("com.goapigo.poc.annotations");
+      Reflections reflections = new Reflections("com.goapigo.core.annotations");
       reflections.getSubTypesOf(Annotation.class).stream()
           .filter(annotation -> SelectorAnnotations.getByAnnotationClass(annotation) != null)
           .forEach(

@@ -1,4 +1,4 @@
-package com.goapigo.poc.exception;
+package com.goapigo.core.exception;
 
 import lombok.NoArgsConstructor;
 

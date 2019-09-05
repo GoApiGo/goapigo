@@ -1,7 +1,7 @@
-package com.goapigo.poc.adapter;
+package com.goapigo.core.adapter;
 
-import com.goapigo.poc.annotations.TextBy;
-import com.goapigo.poc.exception.ElementParsingException;
+import com.goapigo.core.annotations.TextBy;
+import com.goapigo.core.exception.ElementParsingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;

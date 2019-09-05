@@ -1,4 +1,4 @@
-package com.goapigo.poc.adapter;
+package com.goapigo.core.adapter;
 
 public interface Adaptable<T> {
   T adapt();
