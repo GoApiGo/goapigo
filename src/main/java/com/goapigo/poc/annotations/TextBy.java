@@ -1,11 +1,13 @@
-package com.goapigo.poc;
+package com.goapigo.poc.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GoApiGo {
+public @interface TextBy {
+
+  String value();
 }
