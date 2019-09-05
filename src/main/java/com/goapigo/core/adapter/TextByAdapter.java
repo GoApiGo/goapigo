@@ -33,10 +33,10 @@ public class TextByAdapter implements Adaptable<Object> {
 
   private Object elementToObject(Element element) {
     try {
-      if (responseClass.getConstructor(String.class) != null) {
-        return responseClass.getConstructor(String.class).newInstance(element.text());
+      if (isResponseString() || responseClass.getConstructor(String.class) == null) {
+        return element.text();
       }
-      return element.text();
+      return responseClass.getConstructor(String.class).newInstance(element.text());
     } catch (Exception e) {
       throw new ElementParsingException(e);
     }
