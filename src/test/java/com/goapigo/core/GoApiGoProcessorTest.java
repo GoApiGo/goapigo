@@ -1,14 +1,14 @@
-package com.goapigo.core.adapter;
+package com.goapigo.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.goapigo.core.GoApiGoProcessor;
 import com.goapigo.core.dto.AdaptableClass;
 import com.goapigo.core.dto.AdaptableElementClass;
 import com.goapigo.core.dto.NotAdaptableClass;
 import java.util.NoSuchElementException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,10 +25,11 @@ public class GoApiGoProcessorTest {
           + "<li><span>2</span><span>Element 2</span></li>"
           + "<li><span>3</span><span>Element 3</span></li>"
           + "</ul>";
+  @InjectMocks private GoApiGoProcessor processor;
 
   @Test
   public void go() {
-    AdaptableClass adaptableClass = new GoApiGoProcessor().go(HTML_CONTENT, AdaptableClass.class);
+    AdaptableClass adaptableClass = processor.go(HTML_CONTENT, AdaptableClass.class);
     assertThat(adaptableClass).isNotNull();
     assertThat(adaptableClass.getElements()).isNotNull().hasSize(3);
     assertThat(adaptableClass.getAnotherElements()).isNotNull().hasSize(3);
@@ -36,11 +37,11 @@ public class GoApiGoProcessorTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void goWithEntityNotAnnotatedByGoApiGo() {
-    new GoApiGoProcessor().go(HTML_CONTENT, AdaptableElementClass.class);
+    processor.go(HTML_CONTENT, AdaptableElementClass.class);
   }
 
   @Test(expected = NoSuchElementException.class)
   public void goWithError() {
-    new GoApiGoProcessor().go(HTML_CONTENT, NotAdaptableClass.class);
+    processor.go(HTML_CONTENT, NotAdaptableClass.class);
   }
 }

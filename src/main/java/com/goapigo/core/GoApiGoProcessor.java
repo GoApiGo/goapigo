@@ -3,9 +3,10 @@ package com.goapigo.core;
 import com.goapigo.core.adapter.Adaptable;
 import com.goapigo.core.adapter.SelectorAnnotations;
 import com.goapigo.core.annotations.GoApiGo;
+import com.goapigo.core.exception.ElementParsingException;
+import com.goapigo.core.util.AdapterUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -54,20 +55,15 @@ public class GoApiGoProcessor {
           adaptable
               .getConstructor(Annotation.class, String.class, Class.class)
               .newInstance(
-                  field.getAnnotation(selector.getAnnotationClass()), htmlContent, getType(field));
+                  field.getAnnotation(selector.getAnnotationClass()),
+                  htmlContent,
+                  AdapterUtil.getType(field));
       Object adapted = adaptable.getMethod("adapt").invoke(instance);
       field.setAccessible(true);
       field.set(entityInstance, adapted);
     } catch (Exception e) {
       log.error("Error parsing html.", e);
+      throw new ElementParsingException(e);
     }
-  }
-
-  private Class<?> getType(Field field) {
-    if (!(field.getGenericType() instanceof ParameterizedType)) {
-      return field.getType();
-    }
-    ParameterizedType stringListType = (ParameterizedType) field.getGenericType();
-    return (Class<?>) stringListType.getActualTypeArguments()[0];
   }
 }

@@ -6,8 +6,7 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import com.goapigo.core.annotations.ListBy;
 import com.goapigo.core.dto.AdaptableClass;
 import com.goapigo.core.dto.AdaptableElementClass;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
+import com.goapigo.core.util.AdapterUtil;
 import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
@@ -35,7 +34,8 @@ public class ListByAdapterTest {
   public void adaptStringList() throws NoSuchFieldException {
     var elementsField = AdaptableClass.class.getDeclaredField(ELEMENTS_FIELD_NAME);
     var annotation = elementsField.getAnnotation(ListBy.class);
-    var adapter = new ListByAdapter(annotation, LIST_ELEMENTS_TEMPLATE, getType(elementsField));
+    var adapter =
+        new ListByAdapter(annotation, LIST_ELEMENTS_TEMPLATE, AdapterUtil.getType(elementsField));
     var response = (List<Optional<String>>) adapter.adapt();
     assertThat(response).isNotNull().hasSize(3);
     assertSoftly(
@@ -49,19 +49,11 @@ public class ListByAdapterTest {
     var annotation = anotherElementsField.getAnnotation(ListBy.class);
     var adapter =
         new ListByAdapter(
-            annotation, LIST_ANOTHER_ELEMENTS_TEMPLATE, getType(anotherElementsField));
+            annotation, LIST_ANOTHER_ELEMENTS_TEMPLATE, AdapterUtil.getType(anotherElementsField));
     var response = (List<Optional<AdaptableElementClass>>) adapter.adapt();
     assertThat(response).isNotNull().hasSize(3);
     assertSoftly(
         softAssertions ->
             response.forEach(element -> softAssertions.assertThat(element).isPresent()));
-  }
-
-  private Class<?> getType(Field field) {
-    if (!(field.getGenericType() instanceof ParameterizedType)) {
-      return field.getType();
-    }
-    ParameterizedType stringListType = (ParameterizedType) field.getGenericType();
-    return (Class<?>) stringListType.getActualTypeArguments()[0];
   }
 }
