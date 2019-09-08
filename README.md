@@ -17,6 +17,7 @@ You just need to create a class and annotate your attributes with the appropriat
 Below a simple example:
 
 ```java
+@GoApiGo
 public class MyResponse {
   @TextBy("span:nth-child(1)")
   private Integer id;
