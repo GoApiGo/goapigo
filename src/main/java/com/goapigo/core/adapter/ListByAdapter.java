@@ -1,12 +1,12 @@
 package com.goapigo.core.adapter;
 
+import com.goapigo.core.GoApiGoProcessor;
 import com.goapigo.core.annotations.ListBy;
-import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
 
 @RequiredArgsConstructor
 public class ListByAdapter implements Adaptable<List<?>> {

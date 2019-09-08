@@ -56,4 +56,37 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <fmt.goal>format</fmt.goal>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <fmt.goal>check</fmt.goal>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>${fmt.goal}</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

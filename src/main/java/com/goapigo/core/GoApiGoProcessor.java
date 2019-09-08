@@ -1,14 +1,15 @@
-package com.goapigo.core.adapter;
+package com.goapigo.core;
 
+import com.goapigo.core.adapter.Adaptable;
+import com.goapigo.core.adapter.SelectorAnnotations;
 import com.goapigo.core.annotations.GoApiGo;
-import lombok.extern.slf4j.Slf4j;
-import org.reflections.Reflections;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.reflections.Reflections;
 
 @Slf4j
 public class GoApiGoProcessor {
@@ -21,12 +22,12 @@ public class GoApiGoProcessor {
     return processElement(htmlContent, entity).get();
   }
 
-  <T extends Object> Optional<T> processElement(String htmlContent, Class<T> entity) {
+  public <T extends Object> Optional<T> processElement(String htmlContent, Class<T> entity) {
     try {
       T entityInstance = entity.getConstructor().newInstance();
       Reflections reflections = new Reflections("com.goapigo.core.annotations");
       reflections.getSubTypesOf(Annotation.class).stream()
-          .filter(annotation -> SelectorAnnotations.getByAnnotationClass(annotation) != null)
+          .filter(this::isAnnotated)
           .forEach(
               annotation -> {
                 var selector = SelectorAnnotations.getByAnnotationClass(annotation);
@@ -39,6 +40,10 @@ public class GoApiGoProcessor {
       log.error("Error parsing html.", e);
       return Optional.empty();
     }
+  }
+
+  private boolean isAnnotated(Class<? extends Annotation> annotation) {
+    return SelectorAnnotations.getByAnnotationClass(annotation) != null;
   }
 
   private <T extends Object> void processField(

@@ -2,14 +2,13 @@ package com.goapigo.core.adapter;
 
 import com.goapigo.core.annotations.TextBy;
 import com.goapigo.core.exception.ElementParsingException;
+import java.lang.annotation.Annotation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.lang.annotation.Annotation;
 
 @Slf4j
 @RequiredArgsConstructor
