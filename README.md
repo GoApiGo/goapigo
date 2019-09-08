@@ -36,3 +36,9 @@ MyResponse myResponse = new GoApiGoProcessor().go(htmlContent, MyResponse.class)
 ## Maven dependency
 
 Soon.
+
+## Road map
+
+* New annotation `AttributeBy` to able obtain the value of attributes.
+* Own HTTP client based on annotations
+* Compatibility with `FeignClient`
