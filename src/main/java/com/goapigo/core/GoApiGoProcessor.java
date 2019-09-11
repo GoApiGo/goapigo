@@ -5,13 +5,14 @@ import com.goapigo.core.adapter.SelectorAnnotations;
 import com.goapigo.core.annotations.GoApiGo;
 import com.goapigo.core.exception.ElementParsingException;
 import com.goapigo.core.util.AdapterUtil;
+import lombok.extern.slf4j.Slf4j;
+import lombok.var;
+import org.reflections.Reflections;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Optional;
-import lombok.extern.slf4j.Slf4j;
-import lombok.var;
-import org.reflections.Reflections;
 
 @Slf4j
 public class GoApiGoProcessor {
@@ -59,7 +60,7 @@ public class GoApiGoProcessor {
                   field.getAnnotation(selector.getAnnotationClass()),
                   htmlContent,
                   AdapterUtil.getType(field));
-      Object adapted = adaptable.getMethod("adapt").invoke(instance);
+      Object adapted = instance.adapt();
       field.setAccessible(true);
       field.set(entityInstance, adapted);
     } catch (Exception e) {
