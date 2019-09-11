@@ -9,6 +9,7 @@ import com.goapigo.core.dto.AdaptableElementClass;
 import com.goapigo.core.util.AdapterUtil;
 import java.util.List;
 import java.util.Optional;
+import lombok.var;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;

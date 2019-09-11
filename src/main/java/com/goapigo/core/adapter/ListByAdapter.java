@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 import org.jsoup.Jsoup;
 
 @RequiredArgsConstructor

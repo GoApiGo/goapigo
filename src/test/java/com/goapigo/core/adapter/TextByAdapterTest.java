@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.goapigo.core.annotations.TextBy;
 import com.goapigo.core.exception.ElementParsingException;
 import java.lang.reflect.Field;
+import lombok.var;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
