@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 public @interface AttributeBy {
 
   String value();
+
   String attribute();
 }

@@ -1,5 +1,9 @@
 package com.goapigo.core.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.goapigo.core.client.GoHttpClient.go;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.goapigo.core.annotations.GoApiGo;
 import com.goapigo.core.annotations.TextBy;
@@ -11,10 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.goapigo.core.client.GoHttpClient.go;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GoHttpClientTest {

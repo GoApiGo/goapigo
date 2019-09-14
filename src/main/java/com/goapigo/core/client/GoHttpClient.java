@@ -1,7 +1,7 @@
 package com.goapigo.core.client;
 
-import com.goapigo.core.client.callback.HttpClientCallback;
 import com.goapigo.core.client.annotations.GoClient;
+import com.goapigo.core.client.callback.HttpClientCallback;
 import com.goapigo.core.exception.HttpClientException;
 import net.sf.cglib.proxy.Enhancer;
 
