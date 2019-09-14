@@ -10,6 +10,7 @@ import com.goapigo.core.annotations.TextBy;
 import com.goapigo.core.client.annotations.GoClient;
 import com.goapigo.core.client.annotations.GoGet;
 import com.goapigo.core.client.annotations.GoPath;
+import com.goapigo.core.client.annotations.GoPathParam;
 import com.goapigo.core.exception.HttpClientException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,6 +37,23 @@ public class GoHttpClientTest {
     MockedResponse response = httpClient.get();
     assertThat(response.id).isNotNull().isEqualTo(1);
     assertThat(response.name).isNotNull().isEqualTo("Aroldo");
+  }
+
+  @Test
+  public void goWithPathParameter() {
+    stubFor(
+        get(urlEqualTo("/mock/someName"))
+            .willReturn(
+                aResponse()
+                    .withStatus(200)
+                    .withHeader("Content-Type", "text/html")
+                    .withBody("<span id=\"id\">1</span><span id=\"name\">someName</span>")));
+
+    MockedHttpClient httpClient = go(MockedHttpClient.class);
+    assertThat(httpClient).isNotNull();
+    MockedResponse response = httpClient.get("someName");
+    assertThat(response.id).isNotNull().isEqualTo(1);
+    assertThat(response.name).isNotNull().isEqualTo("someName");
   }
 
   @Test
@@ -73,6 +91,10 @@ public class GoHttpClientTest {
 
     @GoPath("/mock")
     MockedResponse getWithoutExplicitVerb();
+
+    @GoGet
+    @GoPath("/mock/{name}")
+    MockedResponse get(@GoPathParam("name") String name);
   }
 
   interface HttpClientNotAnnotated {}
