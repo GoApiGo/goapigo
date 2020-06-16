@@ -4,6 +4,7 @@ import com.goapigo.core.GoApiGoProcessor;
 import com.goapigo.core.annotations.ListBy;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
@@ -24,6 +25,8 @@ public class ListByAdapter implements Adaptable<List<?>> {
     var service = new GoApiGoProcessor();
     return elements.stream()
         .map(element -> service.processElement(element.html(), responseClass))
+        .filter(Optional::isPresent)
+        .map(Optional::get)
         .collect(Collectors.toList());
   }
 }

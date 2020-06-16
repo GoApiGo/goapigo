@@ -37,11 +37,11 @@ public class ListByAdapterTest {
     var annotation = elementsField.getAnnotation(ListBy.class);
     var adapter =
         new ListByAdapter(annotation, LIST_ELEMENTS_TEMPLATE, AdapterUtil.getType(elementsField));
-    var response = (List<Optional<String>>) adapter.adapt();
+    var response = (List<String>) adapter.adapt();
     assertThat(response).isNotNull().hasSize(3);
     assertSoftly(
         softAssertions ->
-            response.forEach(element -> softAssertions.assertThat(element).isPresent()));
+            response.forEach(element -> softAssertions.assertThat(element).isNotNull()));
   }
 
   @Test
@@ -51,10 +51,10 @@ public class ListByAdapterTest {
     var adapter =
         new ListByAdapter(
             annotation, LIST_ANOTHER_ELEMENTS_TEMPLATE, AdapterUtil.getType(anotherElementsField));
-    var response = (List<Optional<AdaptableElementClass>>) adapter.adapt();
+    var response = (List<AdaptableElementClass>) adapter.adapt();
     assertThat(response).isNotNull().hasSize(3);
     assertSoftly(
         softAssertions ->
-            response.forEach(element -> softAssertions.assertThat(element).isPresent()));
+            response.forEach(element -> softAssertions.assertThat(element).isNotNull()));
   }
 }
