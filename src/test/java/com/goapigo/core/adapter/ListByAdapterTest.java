@@ -1,18 +1,18 @@
 package com.goapigo.core.adapter;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
-
 import com.goapigo.core.annotations.ListBy;
 import com.goapigo.core.dto.AdaptableClass;
 import com.goapigo.core.dto.AdaptableElementClass;
 import com.goapigo.core.util.AdapterUtil;
-import java.util.List;
-import java.util.Optional;
 import lombok.var;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ListByAdapterTest {
@@ -37,11 +37,11 @@ public class ListByAdapterTest {
     var annotation = elementsField.getAnnotation(ListBy.class);
     var adapter =
         new ListByAdapter(annotation, LIST_ELEMENTS_TEMPLATE, AdapterUtil.getType(elementsField));
-    var response = (List<Optional<String>>) adapter.adapt();
+    var response = (List<String>) adapter.adapt();
     assertThat(response).isNotNull().hasSize(3);
     assertSoftly(
         softAssertions ->
-            response.forEach(element -> softAssertions.assertThat(element).isPresent()));
+            response.forEach(element -> softAssertions.assertThat(element).isNotNull()));
   }
 
   @Test
@@ -51,10 +51,10 @@ public class ListByAdapterTest {
     var adapter =
         new ListByAdapter(
             annotation, LIST_ANOTHER_ELEMENTS_TEMPLATE, AdapterUtil.getType(anotherElementsField));
-    var response = (List<Optional<AdaptableElementClass>>) adapter.adapt();
+    var response = (List<AdaptableElementClass>) adapter.adapt();
     assertThat(response).isNotNull().hasSize(3);
     assertSoftly(
         softAssertions ->
-            response.forEach(element -> softAssertions.assertThat(element).isPresent()));
+            response.forEach(element -> softAssertions.assertThat(element).isNotNull()));
   }
 }
